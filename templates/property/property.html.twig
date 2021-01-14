@@ -1,0 +1,16 @@
+ <div class="card mb-4">
+ {% if property.filename %}
+        <img src="{{ vich_uploader_asset(property, 'image') }}" class="card-img-top"
+             style="width: 100%; height: auto">
+    {% endif %}
+    <div class="card-body">
+
+        <h5 class="card-titre">
+            <a href="{{ path('property.show', {slug: property.slug, id: property.id}) }}"> {{ property.titre}}</a>
+        </h5>
+       
+        <div class="text-primary"
+             style="font-size: 2rem; font-weight: bold;">{{ property.prix | number_format(0, '', ' ') }} FCFA
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ property.titre }}{% endblock %}
+
+
+{% block body %}
+
+    <div class="jumbotron">
+     {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% if not form.vars.valid %}
+                <div class="alert alert-danger">
+                    Formulaire non valide
+                </div>
+            {% endif %}
+        <div class="container mt-4">
+            <div class="row">
+                 <div class="col-md-8">  
+     {% if property.filename %}
+        <img src="{{ vich_uploader_asset(property, 'image') }}" class="card-img-top"
+             style="width: 100%; height: auto">
+    {% endif %}
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ property.titre }}</h1>
+                    <h2>{{ property.nbrechambre }} Chambre</h2>
+                    <div class="text-primary">{{ property.prix | number_format(0, '', ' ') }} FCFA</div>
+                   <a href="#" class="btn btn-primary"> Contacter</a>
+
+               <div id="contactForm" class="mt-4" >
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col">{{ form_row(form.firstname) }}</div>
+                            <div class="col">{{ form_row(form.lastname) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(form.phone) }}</div>
+                            <div class="col">{{ form_row(form.email) }}</div>
+                        </div>
+                       {{ form_rest(form) }}
+                        
+                        <button class="btn btn-primary"> Envoyer </button>
+                       
+                       {{ form_end(form) }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <p>{{ property.description | nl2br }}</p>
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Caractéristiques</h2>
+                <table class="table table-striped">
+                  <tr>
+                        <td>Chambre</td>
+                        <td>{{ property.nbrechambre }}</td>
+                    </tr>
+                    <tr>
+                        <td>Etages</td>
+                        <td>{{ property.etage }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        
+        </div>
+    </div>
+
+{% endblock %}
